@@ -17,6 +17,16 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
   
+
+    signingConfigs {
+        release {
+            storeFile file("../release_key_store.jks")
+            storePassword "123456"
+            keyAlias "123456"
+            keyPassword "123456"
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -30,6 +40,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
 }
 
 dependencies {
