@@ -6,7 +6,7 @@ pipeline {
 
             steps {
                 withMaven(maven : 'maven_3_6_3') {
-                    bat 'mvn clean compile'
+                    bat 'mvn clean --file *.pom'
                 }
             }
         }
