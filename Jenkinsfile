@@ -3,22 +3,22 @@ pipeline {
 
     stages {
         stage("Checkout"){
-            echo 'Checkout....'
             steps {
+               echo 'Checkout....'
                checkout scm
             }
         }
 
          stage ("Prepare"){
-            echo 'Preparing....'
             steps {
+                echo 'Preparing....'
                 sh 'chmod +x ./gradlew'
             }
         }
 
          stage("Build"){
-           echo 'Preparing....'
            steps {
+             echo 'Preparing....'
              sh './gradlew clean assembleDebug' // builds app/build/outputs/apk/app-debug.apk
 
             }
