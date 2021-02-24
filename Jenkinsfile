@@ -1,24 +1,24 @@
-pipeline {
-    agent any
+/**
+* Android Jenkinsfile
+*/
+node("android"){
+  stage("Checkout"){
+    checkout scm
+  }
 
-    stages {
-        stage ('Compile Stage') {
+  stage ("Prepare"){
+    sh 'chmod +x ./gradlew'
+  }
 
-            steps {
-             echo 'Compileing....'
-                withMaven(maven : 'maven_3_6_3') {
-                    sh 'mvn clean compile'
-                }
-            }
-        }
-
-        stage ('Deployment Stage') {
-            steps {
-               echo 'Building....'
-                withMaven(maven : 'maven_3_6_3') {
-                    sh 'mvn deploy'
-                }
-            }
-        }
+    stage("Build"){
+    if (params.BUILD_CONFIG == 'release') {
+      sh './gradlew clean assembleRelease' // builds app/build/outputs/apk/app-release.apk file
+    } else {
+      sh './gradlew clean assembleDebug' // builds app/build/outputs/apk/app-debug.apk
     }
+  }
+
+  def keyStoreId = params.BUILD_CREDENTIAL_ID
+  def keyAlias = params.BUILD_CREDENTIAL_ALIAS ?: ''
+
 }
